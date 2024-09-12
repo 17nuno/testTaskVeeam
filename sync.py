@@ -83,7 +83,9 @@ def removeReplicaFiles(dcmp):
             logging.info("File %s has been removed", iConc)
         else:
             print ("nao é file", iConc)
-            os.rmdir(iConc)
+            #ver esta função
+            #os.rmdir(iConc)
+            shutil.rmtree(iConc)
             logging.info("Folder %s has been removed", iConc)
 
 

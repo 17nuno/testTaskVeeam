@@ -8,6 +8,10 @@ python ./sync.py C:/Projects/testTaskVeeam/source C:/Projects/testTaskVeeam/repl
 python .\sync.py a nuno c d
 
 
+python ./sync.py C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam/source C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam/replica 1000 C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam/sync.log
+C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam
+
+
 #Class used to store all the user input
 #1)folderPathSource
 #2)folderPathReplica
