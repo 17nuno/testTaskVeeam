@@ -43,3 +43,9 @@ We are delete the different file on replica folder and the we add the file again
 the file in one iteration deletes and when we run again writes, should do everything in the same iteration
 
 
+
+
+Problema das pastas com ficheiros
+problema de apagar na replica um ficheiro que foi alterado e so na proxima iteração é que é feita a cópia :(
+
+

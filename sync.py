@@ -3,6 +3,7 @@ import shutil
 import sys
 import logging
 import os
+import time
 
 def main():
     #print(getArgs()[1])
@@ -10,11 +11,13 @@ def main():
     #print(UsIn.folderPathSource, UsIn.folderPathReplica, UsIn.synchronizationInterval, UsIn.logFilePath)
     createLogFile(UsIn.logFilePath)
     createReplica(UsIn.folderPathSource, UsIn.folderPathReplica)
+    print("UsIn.synchronizationInterval",type(UsIn.synchronizationInterval))
     while True:
         logging.info("Start synchronization")
         
         updateReplica(UsIn.folderPathSource, UsIn.folderPathReplica)
-        break
+        time.sleep(int(UsIn.synchronizationInterval))
+        #break
 
 
 
@@ -46,7 +49,7 @@ def updateReplica(source, replica):
     print("depois entra aqui para atualizar a replica")
     for i in dcmp.left_only:
         iConcat=source+"/"+i
-        print("a",i, iConcat)
+        print("uyuyuyuyuuya",i, iConcat)
         if(os.path.isfile(iConcat)):
             print(1)
             shutil.copy(iConcat, replica)
