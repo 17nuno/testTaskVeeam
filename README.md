@@ -1,15 +1,19 @@
 # testTaskVeeam
 Program that synchronizes two folders: source and replica. The program maintain a full, identical copy of source folder at replica folder.
 
+Run:
+python ./sync.py URL/to/source URL/to/replica 1 URL/to/sync.log
+
 -----------------------------------||---------------------------------||----------------------------------------------||--------------------
+Run:
+python ./sync.py URL/to/source URL/to/replica 1 URL/to/sync.log
+
+Example
+python ./sync.py C:/Projects/testTaskVeeam/source C:/Projects/testTaskVeeam/replica 1 C:/Projects/testTaskVeeam/sync.log
 
 python .\sync.py C:\Projects\testTaskVeeam\source C:\Projects\testTaskVeeam\replica 1000 C:\Projects\testTaskVeeam\sync.log
 python ./sync.py C:/Projects/testTaskVeeam/source C:/Projects/testTaskVeeam/replica 1000 C:/Projects/testTaskVeeam/sync.log
-python .\sync.py a nuno c d
 
-
-python ./sync.py C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam/source C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam/replica 1000 C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam/sync.log
-C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam
 
 
 #Class used to store all the user input
@@ -21,7 +25,7 @@ C:/Users/nuno.serol/Documents/nuno/projects/testTaskVeeam
 
 C:\Projects\testTaskVeeam
 C:\Projects\testTaskVeeam
-1000
+10
 C:\Projects\testTaskVeeam
 
 
@@ -33,19 +37,3 @@ source; replica
 2)Exists and are differents: copy source to replica(test2)
 3)exists only on source: copy source to replica
 4) Exists only in replica: deletes from replica
-
-
------------------------------------||---------------------------------||----------------------------------------------||--------------------
-
-Problems:
-When change a file, maybe is better tu update it 
-We are delete the different file on replica folder and the we add the file again, but, we dont know why,
-the file in one iteration deletes and when we run again writes, should do everything in the same iteration
-
-
-
-
-Problema das pastas com ficheiros
-problema de apagar na replica um ficheiro que foi alterado e so na proxima iteração é que é feita a cópia :(
-
-

@@ -11,15 +11,12 @@ def main():
     #print(UsIn.folderPathSource, UsIn.folderPathReplica, UsIn.synchronizationInterval, UsIn.logFilePath)
     createLogFile(UsIn.logFilePath)
     createReplica(UsIn.folderPathSource, UsIn.folderPathReplica)
-    print("UsIn.synchronizationInterval",type(UsIn.synchronizationInterval))
     while True:
         logging.info("Start synchronization")
         
         updateReplica(UsIn.folderPathSource, UsIn.folderPathReplica)
         time.sleep(int(UsIn.synchronizationInterval))
         #break
-
-
 
 
 #Create Replica Folder if not exists
@@ -49,35 +46,28 @@ def updateReplica(source, replica):
     print("depois entra aqui para atualizar a replica")
     for i in dcmp.left_only:
         iConcat=source+"/"+i
-        print("uyuyuyuyuuya",i, iConcat)
+        replicaConcat=replica+'/'+i
+
         if(os.path.isfile(iConcat)):
-            print(1)
-            shutil.copy(iConcat, replica)
+            shutil.copy2(iConcat, replicaConcat)
             logging.info("File %s has been added to replica folder", iConcat)
-        else:
-            print(iConcat, replica)
-            shutil.copytree(iConcat, replica+"/"+i)
-            logging.info("Folder %s has been added to replica", iConcat)
-            
+        elif os.path.isdir(iConcat):
+            if not os.path.exists(replicaConcat):
+                shutil.copytree(iConcat, replicaConcat)
+            else:
+                updateReplica(iConcat, replicaConcat)
+
+    for i in dcmp.diff_files:
+        iConcat = os.path.join(source, i)
+        replicaConcat = os.path.join(replica, i)
+        # Copy different files from source to replica
+        shutil.copy2(iConcat, replicaConcat)
+        logging.info("File %s has been updated in replica", iConcat)
 
 
-
-
-#We dont need that
-#def print_diff_files(dcmp):
-    #print("befor for")
-#    for name in dcmp.diff_files:
-#        print(dcmp.diff_files)
-#        print("diff_file %s found in %s and %s" % (name, dcmp.left,
-#              dcmp.right))
-#    for sub_dcmp in dcmp.subdirs.values():
-#        print_diff_files(sub_dcmp)
-
-
-
-#Remove files and folders if only in Replica Folder OR have the same name but differents
+#Remove files and folders if only in Replica Folder or have the same name but differents
 def removeReplicaFiles(dcmp):
-    for i in dcmp.right_only or dcmp.diff_files:
+    for i in dcmp.right_only + dcmp.diff_files:
         print("tem fich duferetes fdd!!")
         iConc=dcmp.right+"/"+i
         if(os.path.isfile(iConc)):
@@ -91,8 +81,6 @@ def removeReplicaFiles(dcmp):
             shutil.rmtree(iConc)
             logging.info("Folder %s has been removed", iConc)
 
-
-
 #Class used to store all the user input
     #1)folderPathSource
     #2)folderPathReplica
@@ -104,9 +92,5 @@ class UserInput:
         self.folderPathReplica = sys.argv[2]
         self.synchronizationInterval=sys.argv[3]
         self.logFilePath=sys.argv[4]
-
-#def getArgs():
-    #return folderPathSource, folderPathSource, synchronizationInterval, logFilePath
-
 
 main()
